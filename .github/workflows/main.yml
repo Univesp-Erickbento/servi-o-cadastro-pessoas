@@ -1,7 +1,9 @@
 name: bmt-cadastro-de-pessoas
+
 on:
   push:
-    branches:["develop"]
+    branches:
+      - develop
   workflow_dispatch:
 
 jobs:
@@ -9,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Obter Codigo"
-      - run: echo "Execultar o docker Build"
+      - run: echo "Executar o docker Build"
       - run: echo "Enviar a imagem docker para o Kind"
   CD:
-      runs-on: ubuntu-latest
-      steps:
-        - run: echo "Obter Codigo"
-        - run: echo "Configurar o Kubeconfig"
-        - run: echo "Executar o aplly"
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Obter Codigo"
+      - run: echo "Configurar o Kubeconfig"
+      - run: echo "Executar o apply"
