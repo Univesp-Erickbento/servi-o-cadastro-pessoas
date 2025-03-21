@@ -20,4 +20,4 @@ jobs:
     steps:
       - run: echo "Obter Codigo"
       - run: echo "Configurar o Kubeconfig"
-      - run: echo "Executar o apply"  
+      - run: echo "Executar o apply" 
