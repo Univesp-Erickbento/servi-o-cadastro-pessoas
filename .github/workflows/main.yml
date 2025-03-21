@@ -12,8 +12,9 @@ jobs:
     steps:
       - run: echo "Obter Codigo"
       - run: echo "Executar o docker Build"
-      - run: echo "Enviar a imagem docker para o Kind"
+      - run: echo "Enviar a imagem docker para o Kind
   CD:
+    needs:[CI]
     runs-on: ubuntu-latest
     steps:
       - run: echo "Obter Codigo"
