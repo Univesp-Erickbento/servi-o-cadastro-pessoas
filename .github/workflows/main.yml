@@ -1,7 +1,7 @@
 name: bmt-cadastro-de-pessoas
 on:
   push:
-    branches:["develop]
+    branches:["develop"]
   workflow_dispatch:
 
 jobs:
