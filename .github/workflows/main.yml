@@ -20,4 +20,4 @@ jobs:
     steps:
       - run: echo "Obter Codigo"
       - run: echo "Configurar o Kubeconfig"
-      - run: echo "Executar o apply"  # Certifique-se de que a string esteja corretamente fechada aqui
+      - run: echo "Executar o apply"  
