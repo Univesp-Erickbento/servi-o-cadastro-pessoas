@@ -3,7 +3,7 @@ name: bmt-cadastro-de-pessoas
 on:
   push:
     branches:
-      - develop
+      - main
   workflow_dispatch:
 
 jobs:
