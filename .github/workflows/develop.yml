@@ -1,0 +1,23 @@
+name: bmt-cadastro-de-pessoas
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Obter Codigo"
+      - run: echo "Executar o docker Build"
+      - run: echo "Enviar a imagem docker para o Kind"
+  
+  CD:
+    needs: [CI]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Obter Codigo"
+      - run: echo "Configurar o Kubeconfig"
+      - run: echo "Executar o apply" 
