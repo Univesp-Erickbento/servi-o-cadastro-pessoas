@@ -1,7 +1,7 @@
-package com.mypet.mypet.userCase;
+package com.mypet.core.pessoa.application.usercase;
 
-import com.mypet.mypet.application.core.domain.model.PessoasEntity;
-import com.mypet.mypet.adapters.out.repositories.PessoaRepository;
+import com.mypet.core.pessoa.domain.PessoaEntity;
+import com.mypet.core.adapters.out.repositories.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,46 +17,46 @@ public class PessoaServiceImpl {
 
     // Método para salvar uma pessoa
     @Transactional
-    public PessoasEntity salvar(PessoasEntity pessoa, String authorizationHeader) {
+    public PessoaEntity salvar(PessoaEntity pessoa, String authorizationHeader) {
         // Use o token de autorização conforme necessário
         return pessoaRepository.save(pessoa);
     }
 
     // Método para listar todas as pessoas
-    public List<PessoasEntity> listarTodas() {
+    public List<PessoaEntity> listarTodas() {
         return pessoaRepository.findAll();
     }
 
     // Método para buscar uma pessoa por ID
-    public Optional<PessoasEntity> buscarPorId(Long id, String authorizationHeader) {
+    public Optional<PessoaEntity> buscarPorId(Long id, String authorizationHeader) {
         // Use o token de autorização conforme necessário
         return pessoaRepository.findById(id);
     }
 
     // Método para buscar uma pessoa por CPF
-    public Optional<PessoasEntity> buscarPorCpf(String cpf, String authorizationHeader) {
+    public Optional<PessoaEntity> buscarPorCpf(String cpf, String authorizationHeader) {
         // Use o token de autorização conforme necessário
         return pessoaRepository.findByCpf(cpf);
     }
 
     // Método para atualizar uma pessoa existente
     @Transactional
-    public PessoasEntity atualizar(Long id, PessoasEntity pessoaAtualizada, String authorizationHeader) {
+    public PessoaEntity atualizar(Long id, PessoaEntity pessoaAtualizada, String authorizationHeader) {
         Optional<PessoasEntity> pessoaExistente = pessoaRepository.findById(id);
         if (pessoaExistente.isPresent()) {
-            PessoasEntity pessoasEntity = pessoaExistente.get();
-            pessoasEntity.setNome(pessoaAtualizada.getNome());
-            pessoasEntity.setSobrenome(pessoaAtualizada.getSobrenome());
-            pessoasEntity.setCpf(pessoaAtualizada.getCpf());
-            pessoasEntity.setRg(pessoaAtualizada.getRg());
-            pessoasEntity.setGenero(pessoaAtualizada.getGenero());
-            pessoasEntity.setPerfis(pessoaAtualizada.getPerfis());
-            pessoasEntity.setEmail(pessoaAtualizada.getEmail());
-            pessoasEntity.setContato(pessoaAtualizada.getContato());
-            pessoasEntity.setDataNascimento(pessoaAtualizada.getDataNascimento());
-            pessoasEntity.setDataCadastro(pessoaAtualizada.getDataCadastro());
+            PessoaEntity PessoaEntity = pessoaExistente.get();
+            PessoaEntity.setNome(pessoaAtualizada.getNome());
+            PessoaEntity.setSobrenome(pessoaAtualizada.getSobrenome());
+            PessoaEntity.setCpf(pessoaAtualizada.getCpf());
+            PessoaEntity.setRg(pessoaAtualizada.getRg());
+            PessoaEntity.setGenero(pessoaAtualizada.getGenero());
+            PessoaEntity.setPerfis(pessoaAtualizada.getPerfis());
+            PessoaEntity.setEmail(pessoaAtualizada.getEmail());
+            PessoaEntity.setContato(pessoaAtualizada.getContato());
+            PessoaEntity.setDataNascimento(pessoaAtualizada.getDataNascimento());
+            PessoaEntity.setDataCadastro(pessoaAtualizada.getDataCadastro());
             // Use o token de autorização conforme necessário
-            return pessoaRepository.save(pessoasEntity);
+            return pessoaRepository.save(pessoaEntity);
         }
         return null;
     }
