@@ -1,6 +1,6 @@
-package com.mypet.mypet.application.core.domain.model;
+package com.mypet.core.application.core.domain.model;
 
-import com.mypet.mypet.domain.enums.TipoEndereco;
+import com.mypet.core.domain.enums.TipoEndereco;
 import jakarta.persistence.*;
 import lombok.*;
 

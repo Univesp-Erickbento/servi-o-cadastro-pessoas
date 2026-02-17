@@ -1,6 +1,6 @@
-package com.mypet.mypet.adapters.out.repositories;
+package com.mypet.core.adapters.out.repositories;
 
-import com.mypet.mypet.application.core.domain.model.LoginEntity;
+import com.mypet.core.application.core.domain.model.LoginEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

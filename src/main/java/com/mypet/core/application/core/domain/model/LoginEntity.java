@@ -1,14 +1,13 @@
-package com.mypet.mypet.application.core.domain.model;
+package com.mypet.core.application.core.domain.model;
 
 
-import com.mypet.mypet.domain.dto.login.LoginRequest;
+import com.mypet.core.domain.dto.login.LoginRequest;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.Serializable;
-import java.util.UUID;
+
 @Getter
 @Setter
 @AllArgsConstructor

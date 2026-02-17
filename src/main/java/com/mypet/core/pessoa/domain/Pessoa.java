@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.util.*;
 
 /**
- * Entidade de domínio PessoaEntity (sem anotações JPA).
+ * Entidade de domínio Pessoa (sem anotações JPA).
  */
-public class PessoaEntity {
+public class Pessoa {
 
         private PessoaId id;
         private String nome;
@@ -20,21 +20,21 @@ public class PessoaEntity {
         private LocalDate dataNascimento;
         private LocalDate dataCadastro;
 
-        private PessoaEntity() {
+        private Pessoa() {
                 // construtor para uso interno / mapeadores
         }
 
-        public PessoaEntity(PessoaId id,
-                            String nome,
-                            String sobrenome,
-                            String cpf,
-                            String rg,
-                            String genero,
-                            Collection<String> perfis,
-                            String email,
-                            String contato,
-                            LocalDate dataNascimento,
-                            LocalDate dataCadastro) {
+        public Pessoa(PessoaId id,
+                      String nome,
+                      String sobrenome,
+                      String cpf,
+                      String rg,
+                      String genero,
+                      Collection<String> perfis,
+                      String email,
+                      String contato,
+                      LocalDate dataNascimento,
+                      LocalDate dataCadastro) {
 
                 Objects.requireNonNull(nome, "nome é obrigatório");
                 Objects.requireNonNull(cpf, "cpf é obrigatório");
@@ -56,13 +56,13 @@ public class PessoaEntity {
                 this.dataCadastro = dataCadastro != null ? dataCadastro : LocalDate.now();
         }
 
-        public static PessoaEntity of(PessoaId id,
-                                      String nome,
-                                      String sobrenome,
-                                      String cpf,
-                                      LocalDate dataNascimento) {
+        public static Pessoa of(PessoaId id,
+                                String nome,
+                                String sobrenome,
+                                String cpf,
+                                LocalDate dataNascimento) {
 
-                return new PessoaEntity(
+                return new Pessoa(
                         id,
                         nome,
                         sobrenome,
@@ -193,8 +193,8 @@ public class PessoaEntity {
         @Override
         public boolean equals(Object o) {
                 if (this == o) return true;
-                if (!(o instanceof PessoaEntity)) return false;
-                PessoaEntity other = (PessoaEntity) o;
+                if (!(o instanceof Pessoa)) return false;
+                Pessoa other = (Pessoa) o;
 
                 if (id != null && other.id != null) {
                         return Objects.equals(id, other.id);
@@ -213,7 +213,7 @@ public class PessoaEntity {
 
         @Override
         public String toString() {
-                return "PessoaEntity{" +
+                return "Pessoa{" +
                         "id=" + id +
                         ", nome='" + nome + '\'' +
                         ", cpf='" + cpf + '\'' +

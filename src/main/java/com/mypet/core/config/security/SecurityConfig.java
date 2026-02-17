@@ -1,4 +1,4 @@
-package com.mypet.mypet.config.security;
+package com.mypet.core.config.security;
 
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;

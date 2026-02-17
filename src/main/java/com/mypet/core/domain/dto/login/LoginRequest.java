@@ -1,4 +1,4 @@
-package com.mypet.mypet.domain.dto.login;
+package com.mypet.core.domain.dto.login;
 
 public record LoginRequest(
         String nomeUsuario,

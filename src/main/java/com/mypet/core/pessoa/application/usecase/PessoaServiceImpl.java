@@ -1,70 +1,101 @@
-package com.mypet.core.pessoa.application.usercase;
+package com.mypet.core.pessoa.application.usecase;
 
-import com.mypet.core.pessoa.domain.PessoaEntity;
-import com.mypet.core.adapters.out.repositories.PessoaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mypet.core.pessoa.domain.Pessoa;
+import com.mypet.core.pessoa.port.in.AtualizarPessoaUseCase;
+import com.mypet.core.pessoa.port.in.CadastrarPessoaUseCase;
+import com.mypet.core.pessoa.port.in.ListarPessoasUseCase;
+import com.mypet.core.pessoa.port.in.ObterPessoaUseCase;
+import com.mypet.core.pessoa.port.in.RemoverPessoaUseCase;
+import com.mypet.core.pessoa.port.out.PessoaRepositoryPort;
 import org.springframework.stereotype.Service;
-
 import jakarta.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implementação dos use cases para Pessoa.
+ * Encapsula a lógica de negócio e implementa as portas de entrada.
+ */
 @Service
-public class PessoaServiceImpl {
+public class PessoaServiceImpl implements
+        CadastrarPessoaUseCase,
+        ListarPessoasUseCase,
+        ObterPessoaUseCase,
+        AtualizarPessoaUseCase,
+        RemoverPessoaUseCase {
 
-    @Autowired
-    private PessoaRepository pessoaRepository;
+    private final PessoaRepositoryPort pessoaRepositoryPort;
 
-    // Método para salvar uma pessoa
+    public PessoaServiceImpl(PessoaRepositoryPort pessoaRepositoryPort) {
+        this.pessoaRepositoryPort = pessoaRepositoryPort;
+    }
+
+    /**
+     * Cadastra uma nova pessoa.
+     */
     @Transactional
-    public PessoaEntity salvar(PessoaEntity pessoa, String authorizationHeader) {
-        // Use o token de autorização conforme necessário
-        return pessoaRepository.save(pessoa);
+    @Override
+    public Pessoa executar(Pessoa pessoa, String authorizationHeader) {
+        return pessoaRepositoryPort.save(pessoa);
     }
 
-    // Método para listar todas as pessoas
-    public List<PessoaEntity> listarTodas() {
-        return pessoaRepository.findAll();
+    /**
+     * Lista todas as pessoas cadastradas.
+     */
+    @Override
+    public List<Pessoa> executar() {
+        return pessoaRepositoryPort.findAll();
     }
 
-    // Método para buscar uma pessoa por ID
-    public Optional<PessoaEntity> buscarPorId(Long id, String authorizationHeader) {
-        // Use o token de autorização conforme necessário
-        return pessoaRepository.findById(id);
+    /**
+     * Obtém uma pessoa pelo ID.
+     */
+    @Override
+    public Optional<Pessoa> obterPorId(Long id, String authorizationHeader) {
+        return pessoaRepositoryPort.findById(id);
     }
 
-    // Método para buscar uma pessoa por CPF
-    public Optional<PessoaEntity> buscarPorCpf(String cpf, String authorizationHeader) {
-        // Use o token de autorização conforme necessário
-        return pessoaRepository.findByCpf(cpf);
+    /**
+     * Obtém uma pessoa pelo CPF.
+     */
+    @Override
+    public Optional<Pessoa> obterPorCpf(String cpf, String authorizationHeader) {
+        return pessoaRepositoryPort.findByCpf(cpf);
     }
 
-    // Método para atualizar uma pessoa existente
+    /**
+     * Atualiza uma pessoa existente.
+     */
     @Transactional
-    public PessoaEntity atualizar(Long id, PessoaEntity pessoaAtualizada, String authorizationHeader) {
-        Optional<PessoasEntity> pessoaExistente = pessoaRepository.findById(id);
-        if (pessoaExistente.isPresent()) {
-            PessoaEntity PessoaEntity = pessoaExistente.get();
-            PessoaEntity.setNome(pessoaAtualizada.getNome());
-            PessoaEntity.setSobrenome(pessoaAtualizada.getSobrenome());
-            PessoaEntity.setCpf(pessoaAtualizada.getCpf());
-            PessoaEntity.setRg(pessoaAtualizada.getRg());
-            PessoaEntity.setGenero(pessoaAtualizada.getGenero());
-            PessoaEntity.setPerfis(pessoaAtualizada.getPerfis());
-            PessoaEntity.setEmail(pessoaAtualizada.getEmail());
-            PessoaEntity.setContato(pessoaAtualizada.getContato());
-            PessoaEntity.setDataNascimento(pessoaAtualizada.getDataNascimento());
-            PessoaEntity.setDataCadastro(pessoaAtualizada.getDataCadastro());
-            // Use o token de autorização conforme necessário
-            return pessoaRepository.save(pessoaEntity);
-        }
-        return null;
+    @Override
+    public Optional<Pessoa> executar(Long id, Pessoa pessoaAtualizada, String authorizationHeader) {
+
+        return pessoaRepositoryPort.findById(id)
+                .map(existing -> {
+
+                    existing.atualizarDados(
+                            pessoaAtualizada.getNome(),
+                            pessoaAtualizada.getSobrenome(),
+                            pessoaAtualizada.getCpf(),
+                            pessoaAtualizada.getRg(),
+                            pessoaAtualizada.getGenero(),
+                            pessoaAtualizada.getPerfis(),
+                            pessoaAtualizada.getEmail(),
+                            pessoaAtualizada.getContato(),
+                            pessoaAtualizada.getDataNascimento()
+                    );
+
+                    return pessoaRepositoryPort.save(existing);
+                });
     }
 
-    // Método para deletar uma pessoa por ID
+    /**
+     * Remove uma pessoa pelo ID.
+     */
     @Transactional
-    public void deletar(Long id, String authorizationHeader) {
-        // Use o token de autorização conforme necessário
-        pessoaRepository.deleteById(id);
+    @Override
+    public void executar(Long id, String authorizationHeader) {
+        pessoaRepositoryPort.deleteById(id);
     }
 }

@@ -1,8 +1,7 @@
-package com.mypet.core.pessoa.adapter.out.persistence;
-// java
 package com.mypet.core.pessoa.port.out;
 
-import com.mypet.core.pessoa.domain.PessoaEntity;
+import com.mypet.core.pessoa.domain.Pessoa;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,9 +10,9 @@ import java.util.Optional;
  * Define o contrato que o adaptador de persistência deve implementar.
  */
 public interface PessoaRepositoryPort {
-    PessoaEntity save(PessoaEntity pessoa);
-    List<PessoaEntity> findAll();
-    Optional<PessoaEntity> findById(Long id);
-    Optional<PessoaEntity> findByCpf(String cpf);
+    Pessoa save(Pessoa pessoa);
+    List<Pessoa> findAll();
+    Optional<Pessoa> findById(Long id);
+    Optional<Pessoa> findByCpf(String cpf);
     void deleteById(Long id);
 }

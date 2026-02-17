@@ -1,4 +1,4 @@
-package com.mypet.mypet.domain.enums;
+package com.mypet.core.domain.enums;
 
 public enum TipoEndereco {
     PRINCIPAL(0, "ENDEREÇO PRINCIPAL"), ENDERECO2(1, "ENDEREÇO SECUNDARIO"), ENDERECO3(2, "TERCEIRO ENDEREÇO");

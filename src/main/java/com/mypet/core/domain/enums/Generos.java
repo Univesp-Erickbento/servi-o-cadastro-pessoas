@@ -1,4 +1,4 @@
-package com.mypet.mypet.domain.enums;
+package com.mypet.core.domain.enums;
 
 public enum Generos {
     HOMEM_CIS(0, "SEXO_MASCULINO"), MULHER_CIS(1, "SEXO_FEMININO"), HOMEN_TRANS(2, "IDENTIFICA_HOMEM"),

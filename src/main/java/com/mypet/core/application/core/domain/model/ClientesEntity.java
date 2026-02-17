@@ -1,6 +1,6 @@
-package com.mypet.mypet.application.core.domain.model;
+package com.mypet.core.application.core.domain.model;
 
-import com.mypet.mypet.domain.enums.Status;
+import com.mypet.core.domain.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 

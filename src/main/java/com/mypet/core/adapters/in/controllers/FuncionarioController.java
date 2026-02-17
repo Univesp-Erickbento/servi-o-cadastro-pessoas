@@ -1,7 +1,7 @@
-package com.mypet.mypet.adapters.in.controllers;
+package com.mypet.core.adapters.in.controllers;
 
-import com.mypet.mypet.domain.dto.FuncionarioDTO;
-import com.mypet.mypet.userCase.FuncionarioServiceImpl;
+import com.mypet.core.domain.dto.FuncionarioDTO;
+import com.mypet.core.userCase.FuncionarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

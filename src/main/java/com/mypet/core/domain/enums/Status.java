@@ -1,4 +1,4 @@
-package com.mypet.mypet.domain.enums;
+package com.mypet.core.domain.enums;
 
 public enum Status {
     ATIVO,

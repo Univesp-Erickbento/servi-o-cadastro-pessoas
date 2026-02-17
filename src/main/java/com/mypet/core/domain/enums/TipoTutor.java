@@ -1,4 +1,4 @@
-package com.mypet.mypet.domain.enums;
+package com.mypet.core.domain.enums;
 
 public enum TipoTutor {
     INICANTE(0, "MENOS_1MÊS"), JUNIOR(1, "DE_2_A_6_MÊSES"), SENIOR(2, "MAIS-DE-6_MESES"),

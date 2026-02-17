@@ -1,4 +1,4 @@
-package com.mypet.mypet.domain.dto;
+package com.mypet.core.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

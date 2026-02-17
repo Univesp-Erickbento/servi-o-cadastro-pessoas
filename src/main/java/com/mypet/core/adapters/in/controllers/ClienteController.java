@@ -1,10 +1,10 @@
-package com.mypet.mypet.adapters.in.controllers;
+package com.mypet.core.adapters.in.controllers;
 
-import com.mypet.mypet.domain.dto.clientedto.ClienteEnvioDTO;
-import com.mypet.mypet.domain.enums.Status;
+import com.mypet.core.domain.dto.clientedto.ClienteEnvioDTO;
+import com.mypet.core.domain.enums.Status;
 
-import com.mypet.mypet.application.core.domain.model.ClientesEntity;
-import com.mypet.mypet.userCase.ClienteServiceImpl;
+import com.mypet.core.application.core.domain.model.ClientesEntity;
+import com.mypet.core.userCase.ClienteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

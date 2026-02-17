@@ -1,4 +1,4 @@
-package com.mypet.mypet.config;
+package com.mypet.core.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;

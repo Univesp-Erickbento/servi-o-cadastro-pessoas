@@ -1,9 +1,9 @@
-package com.mypet.mypet.userCase;
+package com.mypet.core.userCase;
 
-import com.mypet.mypet.domain.dto.login.LoginRequest;
-import com.mypet.mypet.domain.dto.login.LoginResponse;
-import com.mypet.mypet.application.core.domain.model.LoginEntity;
-import com.mypet.mypet.adapters.out.repositories.LoginRepository;
+import com.mypet.core.domain.dto.login.LoginRequest;
+import com.mypet.core.domain.dto.login.LoginResponse;
+import com.mypet.core.application.core.domain.model.LoginEntity;
+import com.mypet.core.adapters.out.repositories.LoginRepository;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;

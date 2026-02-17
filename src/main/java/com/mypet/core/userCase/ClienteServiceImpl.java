@@ -1,7 +1,7 @@
-package com.mypet.mypet.userCase;
+package com.mypet.core.userCase;
 
-import com.mypet.mypet.application.core.domain.model.ClientesEntity;
-import com.mypet.mypet.adapters.out.repositories.ClienteRepository;
+import com.mypet.core.application.core.domain.model.ClientesEntity;
+import com.mypet.core.adapters.out.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.mypet.mypet.domain.dto.clientedto;
+package com.mypet.core.domain.dto.clientedto;
 
 
 public record ClienteEnvioDTO(

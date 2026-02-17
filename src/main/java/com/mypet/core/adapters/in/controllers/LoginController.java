@@ -1,8 +1,8 @@
-package com.mypet.mypet.adapters.in.controllers;
+package com.mypet.core.adapters.in.controllers;
 
-import com.mypet.mypet.domain.dto.login.LoginRequest;
-import com.mypet.mypet.domain.dto.login.LoginResponse;
-import com.mypet.mypet.userCase.LoginService;
+import com.mypet.core.domain.dto.login.LoginRequest;
+import com.mypet.core.domain.dto.login.LoginResponse;
+import com.mypet.core.userCase.LoginService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;

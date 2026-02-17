@@ -1,4 +1,4 @@
-package com.mypet.mypet.userCase;
+package com.mypet.core.userCase;
 
 
 

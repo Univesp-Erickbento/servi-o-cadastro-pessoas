@@ -1,5 +1,5 @@
-package com.mypet.mypet.userCase;
-import com.mypet.mypet.application.core.domain.model.EnderecosEntity;
+package com.mypet.core.userCase;
+import com.mypet.core.application.core.domain.model.EnderecosEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

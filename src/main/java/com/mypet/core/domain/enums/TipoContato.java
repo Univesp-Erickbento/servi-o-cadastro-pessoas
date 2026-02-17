@@ -1,4 +1,4 @@
-package com.mypet.mypet.domain.enums;
+package com.mypet.core.domain.enums;
 
 public enum TipoContato {
     TELEFONE(0, "CELULAR OU RESIDENCIAL"), EMAIL(1, " E-MAIL");

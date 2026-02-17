@@ -1,4 +1,4 @@
-package com.mypet.mypet.domain.enums;
+package com.mypet.core.domain.enums;
 
 public enum TipoEmail {
     PRINCIPAL(0, "EMAIL PRINCIPAL"), EMAIL2(1, "ENDEREÇO SECUNDARIO"), EMAIL3(2, "TERCEIRO ENDEREÇO");

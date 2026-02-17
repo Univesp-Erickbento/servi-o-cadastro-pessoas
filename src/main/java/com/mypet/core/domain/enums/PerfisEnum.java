@@ -1,4 +1,4 @@
-package com.mypet.mypet.domain.enums;
+package com.mypet.core.domain.enums;
 
 public enum PerfisEnum {
     ADMIN(0, "ROLE_ADMIN"), TUTOR(1, "ROLE_TUTOR"), FUNCIONARIO(2, "ROLE_FUNCIONARIO");

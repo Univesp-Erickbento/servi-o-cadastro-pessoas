@@ -1,8 +1,11 @@
-package com.mypet.mypet.adapters.in.controllers;
+package com.mypet.core.adapters.in.controllers;
 
-import com.mypet.mypet.application.core.domain.model.PessoasEntity;
-import com.mypet.mypet.userCase.PessoaServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mypet.core.pessoa.domain.Pessoa;
+import com.mypet.core.pessoa.port.in.CadastrarPessoaUseCase;
+import com.mypet.core.pessoa.port.in.ListarPessoasUseCase;
+import com.mypet.core.pessoa.port.in.ObterPessoaUseCase;
+import com.mypet.core.pessoa.port.in.AtualizarPessoaUseCase;
+import com.mypet.core.pessoa.port.in.RemoverPessoaUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,44 +17,61 @@ import java.util.List;
 @CrossOrigin(origins = {"http://45.93.100.30:4200", "http://192.168.15.2:4200", "http://192.168.15.200:4200", "http://localhost:4200"})
 public class PessoaController {
 
-    @Autowired
-    private PessoaServiceImpl pessoaService;
+    private final ListarPessoasUseCase listarPessoasUseCase;
+    private final ObterPessoaUseCase obterPessoaUseCase;
+    private final CadastrarPessoaUseCase cadastrarPessoaUseCase;
+    private final AtualizarPessoaUseCase atualizarPessoaUseCase;
+    private final RemoverPessoaUseCase removerPessoaUseCase;
+
+    public PessoaController(
+            ListarPessoasUseCase listarPessoasUseCase,
+            ObterPessoaUseCase obterPessoaUseCase,
+            CadastrarPessoaUseCase cadastrarPessoaUseCase,
+            AtualizarPessoaUseCase atualizarPessoaUseCase,
+            RemoverPessoaUseCase removerPessoaUseCase) {
+        this.listarPessoasUseCase = listarPessoasUseCase;
+        this.obterPessoaUseCase = obterPessoaUseCase;
+        this.cadastrarPessoaUseCase = cadastrarPessoaUseCase;
+        this.atualizarPessoaUseCase = atualizarPessoaUseCase;
+        this.removerPessoaUseCase = removerPessoaUseCase;
+    }
 
     @GetMapping
-    public ResponseEntity<List<PessoasEntity>> listarTodas() {
-        List<PessoasEntity> pessoas = pessoaService.listarTodas();
+    public ResponseEntity<List<Pessoa>> listarTodas() {
+        List<Pessoa> pessoas = listarPessoasUseCase.executar();
         return ResponseEntity.ok(pessoas);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PessoasEntity> buscarPorId(@PathVariable Long id, @RequestHeader("Authorization") String authorizationHeader) {
-        return pessoaService.buscarPorId(id, authorizationHeader)
+    public ResponseEntity<Pessoa> buscarPorId(@PathVariable Long id, @RequestHeader("Authorization") String authorizationHeader) {
+        return obterPessoaUseCase.obterPorId(id, authorizationHeader)
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/cpf/{cpf}")
-    public ResponseEntity<PessoasEntity> buscarPorCpf(@PathVariable String cpf, @RequestHeader("Authorization") String authorizationHeader) {
-        return pessoaService.buscarPorCpf(cpf, authorizationHeader)
+    public ResponseEntity<Pessoa> buscarPorCpf(@PathVariable String cpf, @RequestHeader("Authorization") String authorizationHeader) {
+        return obterPessoaUseCase.obterPorCpf(cpf, authorizationHeader)
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/adicionar")
-    public ResponseEntity<PessoasEntity> salvar(@RequestBody PessoasEntity pessoa, @RequestHeader("Authorization") String authorizationHeader) {
-        PessoasEntity pessoaSalva = pessoaService.salvar(pessoa, authorizationHeader);
+    public ResponseEntity<Pessoa> salvar(@RequestBody Pessoa pessoa, @RequestHeader("Authorization") String authorizationHeader) {
+        Pessoa pessoaSalva = cadastrarPessoaUseCase.executar(pessoa, authorizationHeader);
         return new ResponseEntity<>(pessoaSalva, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PessoasEntity> atualizar(@PathVariable Long id, @RequestBody PessoasEntity pessoa, @RequestHeader("Authorization") String authorizationHeader) {
-        PessoasEntity pessoaAtualizada = pessoaService.atualizar(id, pessoa, authorizationHeader);
-        return pessoaAtualizada != null ? ResponseEntity.ok(pessoaAtualizada) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Pessoa> atualizar(@PathVariable Long id, @RequestBody Pessoa pessoa, @RequestHeader("Authorization") String authorizationHeader) {
+        return atualizarPessoaUseCase.executar(id, pessoa, authorizationHeader)
+                .map(ResponseEntity::ok)
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id, @RequestHeader("Authorization") String authorizationHeader) {
-        pessoaService.deletar(id, authorizationHeader);
+        removerPessoaUseCase.executar(id, authorizationHeader);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
