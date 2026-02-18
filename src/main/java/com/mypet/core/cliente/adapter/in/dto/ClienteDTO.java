@@ -1,4 +1,4 @@
-package com.mypet.core.domain.dto.clientedto;
+package com.mypet.core.cliente.adapter.in.dto;
 
 import com.mypet.core.pessoa.domain.Pessoa;
 import com.mypet.core.domain.enums.Status;

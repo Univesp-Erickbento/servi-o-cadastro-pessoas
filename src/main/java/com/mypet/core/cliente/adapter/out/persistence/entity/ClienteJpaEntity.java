@@ -1,4 +1,4 @@
-package com.mypet.core.application.core.domain.model;
+package com.mypet.core.cliente.adapter.out.persistence.entity;
 
 import com.mypet.core.domain.enums.Status;
 import jakarta.persistence.*;
@@ -13,7 +13,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "tb_clientes")
-public class ClientesEntity implements Serializable {
+public class ClienteJpaEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

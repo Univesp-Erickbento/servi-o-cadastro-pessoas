@@ -1,5 +1,6 @@
 package com.mypet.core.application.core.domain.model;
 
+import com.mypet.core.cliente.domain.Cliente;
 import com.mypet.core.domain.enums.TipoEndereco;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,7 +29,7 @@ public class EnderecosEntity implements Serializable {
 
     @ManyToOne // Relacionamento muitos-para-um com Cliente
     @JoinColumn(name = "clienteId") // Nome da coluna estrangeira no banco de dados
-    private ClientesEntity clienteId; // Este é o nome referenciado em 'mappedBy' na classe Cliente
+    private Cliente clienteId; // Este é o nome referenciado em 'mappedBy' na classe Cliente
 
 
    // private Cliente clienteId;

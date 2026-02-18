@@ -1,10 +1,10 @@
 package com.mypet.core.adapters.in.controllers;
 
-import com.mypet.core.domain.dto.clientedto.ClienteEnvioDTO;
+import com.mypet.core.cliente.application.usecase.ClienteServiceImpl;
+import com.mypet.core.cliente.domain.Cliente;
+import com.mypet.core.pessoa.domain.PessoaId;
+import com.mypet.core.cliente.adapter.in.dto.ClienteEnvioDTO;
 import com.mypet.core.domain.enums.Status;
-
-import com.mypet.core.application.core.domain.model.ClientesEntity;
-import com.mypet.core.userCase.ClienteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,60 +14,98 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/clientes")
-@CrossOrigin(origins = {"http://45.93.100.30:4200", "http://192.168.15.2:4200", "http://192.168.15.200:4200", "http://localhost:4200"})
+@CrossOrigin(origins = {
+        "http://45.93.100.30:4200",
+        "http://192.168.15.2:4200",
+        "http://192.168.15.200:4200",
+        "http://localhost:4200"
+})
 public class ClienteController {
 
     @Autowired
     private ClienteServiceImpl clienteService;
 
     @GetMapping
-    public ResponseEntity<List<ClientesEntity>> listarTodos(@RequestHeader("Authorization") String authorizationHeader) {
-        List<ClientesEntity> clientes = clienteService.listarTodos(authorizationHeader);
+    public ResponseEntity<List<Cliente>> listarTodos(@RequestHeader("Authorization") String authorizationHeader) {
+        List<Cliente> clientes = clienteService.listarTodos(authorizationHeader);
         return ResponseEntity.ok(clientes);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClientesEntity> buscarPorId(@PathVariable Long id, @RequestHeader("Authorization") String authorizationHeader) {
+    public ResponseEntity<Cliente> buscarPorId(@PathVariable Long id,
+                                               @RequestHeader("Authorization") String authorizationHeader) {
         return clienteService.buscarPorId(id, authorizationHeader)
                 .map(ResponseEntity::ok)
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<ClientesEntity> salvar(@RequestBody ClienteEnvioDTO dto,
-                                                 @RequestHeader("Authorization") String authorizationHeader) {
+    public ResponseEntity<Cliente> salvar(@RequestBody ClienteEnvioDTO dto,
+                                          @RequestHeader("Authorization") String authorizationHeader) {
 
-        System.out.println("📥 DTO recebido: " + dto);
-        System.out.println("📥 Status recebido: " + dto.clienteStatus());
-        ClientesEntity cliente = new ClientesEntity();
-        cliente.setPessoaId(dto.pessoaId());
-        cliente.setClienteReg(dto.clienteReg());
-        cliente.setClienteStatus(Status.valueOf(dto.clienteStatus().toUpperCase()));  // Assumindo que está vindo como "ATIVO"
+        // Verificação de obrigatoriedade
+        if (dto.pessoaId() <= 0) {
+            throw new IllegalArgumentException("pessoaId obrigatório e deve ser maior que zero");
+        }
 
-        ClientesEntity clienteSalvo = clienteService.salvar(cliente, authorizationHeader);
+        // Converter long para PessoaId
+        PessoaId pessoaId = PessoaId.of(dto.pessoaId());
+
+        // Criar Cliente usando factory method do domínio
+        Cliente cliente = Cliente.novo(pessoaId, dto.clienteReg());
+
+        // Aplicar status, se enviado
+        if (dto.clienteStatus() != null && !dto.clienteStatus().isBlank()) {
+            Status status = Status.valueOf(dto.clienteStatus().toUpperCase());
+            if (status == Status.INATIVO) {
+                cliente.inativar();
+            } else {
+                cliente.ativar();
+            }
+        }
+
+        Cliente clienteSalvo = clienteService.salvar(cliente, authorizationHeader);
         return new ResponseEntity<>(clienteSalvo, HttpStatus.CREATED);
     }
 
-
     @PutMapping("/{id}")
-    public ResponseEntity<ClientesEntity> atualizar(@PathVariable Long id, @RequestBody ClientesEntity clientesEntity, @RequestHeader("Authorization") String authorizationHeader) {
-        ClientesEntity clienteAtualizado = clienteService.atualizar(id, clientesEntity, authorizationHeader);
-        return clienteAtualizado != null ? ResponseEntity.ok(clienteAtualizado) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Cliente> atualizar(@PathVariable Long id,
+                                             @RequestBody ClienteEnvioDTO dto,
+                                             @RequestHeader("Authorization") String authorizationHeader) {
+
+        if (dto.pessoaId() <= 0) {
+            throw new IllegalArgumentException("pessoaId obrigatório e deve ser maior que zero");
+        }
+
+        // Converter long para PessoaId
+        PessoaId pessoaId = PessoaId.of(dto.pessoaId());
+
+        // Criar Cliente com dados do DTO
+        Cliente clienteAtualizado = new Cliente(
+                null, // id será resolvido pelo service
+                pessoaId,
+                dto.clienteReg(),
+                dto.clienteStatus() != null ? Status.valueOf(dto.clienteStatus().toUpperCase()) : Status.ATIVO
+        );
+
+        Cliente resultado = clienteService.atualizar(id, clienteAtualizado, authorizationHeader);
+        return resultado != null ? ResponseEntity.ok(resultado) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id, @RequestHeader("Authorization") String authorizationHeader) {
+    public ResponseEntity<Void> deletar(@PathVariable Long id,
+                                        @RequestHeader("Authorization") String authorizationHeader) {
         clienteService.deletar(id, authorizationHeader);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 
-    // 🔹 Novo endpoint para buscar cliente por pessoaId
     @GetMapping("/pessoa/{pessoaId}")
-    public ResponseEntity<ClientesEntity> buscarPorPessoaId(@PathVariable("pessoaId") Long pessoaId,
-                                                            @RequestHeader("Authorization") String authorizationHeader)
-    {
-        return clienteService.buscarPorPessoaId(pessoaId, authorizationHeader)
+    public ResponseEntity<Cliente> buscarPorPessoaId(@PathVariable Long pessoaId,
+                                                     @RequestHeader("Authorization") String authorizationHeader) {
+        // Converter long para PessoaId
+        PessoaId pid = PessoaId.of(pessoaId);
+        return clienteService.buscarPorPessoaId(pid, authorizationHeader)
                 .map(ResponseEntity::ok)
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElse(ResponseEntity.notFound().build());
     }
 }
