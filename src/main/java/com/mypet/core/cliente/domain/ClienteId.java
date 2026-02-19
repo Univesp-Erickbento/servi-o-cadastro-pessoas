@@ -1,5 +1,7 @@
 package com.mypet.core.cliente.domain;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.Objects;
 
 /**
@@ -27,6 +29,7 @@ public final class ClienteId {
         return new ClienteId(null);
     }
 
+    @JsonValue // 🔥 ISSO RESOLVE
     public Long asLong() {
         return value;
     }
@@ -50,6 +53,6 @@ public final class ClienteId {
 
     @Override
     public String toString() {
-        return "ClienteId{" + value + '}';
+        return String.valueOf(value);
     }
 }

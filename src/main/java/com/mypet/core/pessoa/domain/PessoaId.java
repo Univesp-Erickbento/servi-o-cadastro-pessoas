@@ -1,6 +1,8 @@
 // java
 package com.mypet.core.pessoa.domain;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.Objects;
 
 /**
@@ -26,6 +28,7 @@ public final class PessoaId {
         return new PessoaId(null);
     }
 
+    @JsonValue
     public Long asLong() {
         return value;
     }
