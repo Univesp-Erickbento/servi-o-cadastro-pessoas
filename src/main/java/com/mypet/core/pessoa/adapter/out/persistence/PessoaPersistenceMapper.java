@@ -3,9 +3,13 @@ package com.mypet.core.pessoa.adapter.out.persistence;
 import com.mypet.core.pessoa.adapter.out.persistence.entity.PessoaJpaEntity;
 import com.mypet.core.pessoa.domain.Pessoa;
 import com.mypet.core.pessoa.domain.PessoaId;
+import org.springframework.stereotype.Component;
 
-import java.util.LinkedHashSet;
-
+/**
+ * Mapper responsável por converter entre a entidade de domínio Pessoa
+ * e a entidade JPA PessoaJpaEntity.
+ */
+@Component
 public class PessoaPersistenceMapper {
 
     // ===============================
@@ -28,14 +32,11 @@ public class PessoaPersistenceMapper {
         jpa.setCpf(domain.getCpf());
         jpa.setRg(domain.getRg());
         jpa.setGenero(domain.getGenero());
+        jpa.setPerfil(domain.getPerfil()); // 🔥 agora é String
         jpa.setEmail(domain.getEmail());
         jpa.setContato(domain.getContato());
         jpa.setDataNascimento(domain.getDataNascimento());
         jpa.setDataCadastro(domain.getDataCadastro());
-
-        if (domain.getPerfis() != null) {
-            jpa.setPerfis(new LinkedHashSet<>(domain.getPerfis()));
-        }
 
         return jpa;
     }
@@ -62,7 +63,7 @@ public class PessoaPersistenceMapper {
                 jpa.getCpf(),
                 jpa.getRg(),
                 jpa.getGenero(),
-                jpa.getPerfis(),
+                jpa.getPerfil(), // 🔥 agora é String
                 jpa.getEmail(),
                 jpa.getContato(),
                 jpa.getDataNascimento(),

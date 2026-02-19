@@ -80,7 +80,7 @@ public class PessoaServiceImpl implements
                             pessoaAtualizada.getCpf(),
                             pessoaAtualizada.getRg(),
                             pessoaAtualizada.getGenero(),
-                            pessoaAtualizada.getPerfis(),
+                            pessoaAtualizada.getPerfil(),
                             pessoaAtualizada.getEmail(),
                             pessoaAtualizada.getContato(),
                             pessoaAtualizada.getDataNascimento()

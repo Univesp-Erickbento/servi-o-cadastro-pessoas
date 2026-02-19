@@ -27,13 +27,13 @@ public class EnderecosEntity implements Serializable {
 //    @JoinColumn(name = "pessoaId") // Nome da coluna estrangeira no banco de dados
 //    private Pessoa pessoaId;
 
-    @ManyToOne // Relacionamento muitos-para-um com Cliente
-    @JoinColumn(name = "clienteId") // Nome da coluna estrangeira no banco de dados
-    private Cliente clienteId; // Este é o nome referenciado em 'mappedBy' na classe Cliente
+//    @ManyToOne // Relacionamento muitos-para-um com Cliente
+//    @JoinColumn(name = "clienteId") // Nome da coluna estrangeira no banco de dados
+//    private Cliente clienteId; // Este é o nome referenciado em 'mappedBy' na classe Cliente
 
 
-   // private Cliente clienteId;
-    private FuncionariosEntity funcionarioId;
+//   // private Cliente clienteId;
+//    private FuncionariosEntity funcionarioId;
 
     private String rua;
     private String numero;

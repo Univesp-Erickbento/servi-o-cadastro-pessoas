@@ -2,11 +2,9 @@ package com.mypet.core.pessoa.adapter.out.persistence.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity
-@Table(name = "pessoa")
+@Table(name = "tb_pessoas")
 public class PessoaJpaEntity {
 
     @Id
@@ -25,26 +23,22 @@ public class PessoaJpaEntity {
 
     private String genero;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(
-            name = "pessoa_perfis",
-            joinColumns = @JoinColumn(name = "pessoa_id")
-    )
     @Column(name = "perfil")
-    private Set<String> perfis = new LinkedHashSet<>();
+    private String perfil; // 🔥 agora é coluna simples
 
     private String email;
 
     private String contato;
 
+    @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
+    @Column(name = "data_cadastro")
     private LocalDate dataCadastro;
 
     // =========================
     // CONSTRUTOR PADRÃO (OBRIGATÓRIO PARA JPA)
     // =========================
-
     public PessoaJpaEntity() {
     }
 
@@ -56,16 +50,16 @@ public class PessoaJpaEntity {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getSobrenome() {
@@ -100,12 +94,12 @@ public class PessoaJpaEntity {
         this.genero = genero;
     }
 
-    public Set<String> getPerfis() {
-        return perfis;
+    public String getPerfil() {
+        return perfil;
     }
 
-    public void setPerfis(Set<String> perfis) {
-        this.perfis = perfis;
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
     }
 
     public String getEmail() {

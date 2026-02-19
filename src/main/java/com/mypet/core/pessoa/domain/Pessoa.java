@@ -1,7 +1,7 @@
 package com.mypet.core.pessoa.domain;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Objects;
 
 /**
  * Entidade de domínio Pessoa (sem anotações JPA).
@@ -14,7 +14,7 @@ public class Pessoa {
         private String cpf;
         private String rg;
         private String genero;
-        private Set<String> perfis = new LinkedHashSet<>();
+        private String perfil; // ✅ agora é String
         private String email;
         private String contato;
         private LocalDate dataNascimento;
@@ -30,7 +30,7 @@ public class Pessoa {
                       String cpf,
                       String rg,
                       String genero,
-                      Collection<String> perfis,
+                      String perfil,
                       String email,
                       String contato,
                       LocalDate dataNascimento,
@@ -45,11 +45,7 @@ public class Pessoa {
                 this.cpf = cpf;
                 this.rg = rg;
                 this.genero = genero;
-
-                if (perfis != null) {
-                        this.perfis = new LinkedHashSet<>(perfis);
-                }
-
+                this.perfil = perfil;
                 this.email = email;
                 this.contato = contato;
                 this.dataNascimento = dataNascimento;
@@ -109,8 +105,8 @@ public class Pessoa {
                 return genero;
         }
 
-        public Set<String> getPerfis() {
-                return Collections.unmodifiableSet(perfis);
+        public String getPerfil() {   // ✅ agora é String
+                return perfil;
         }
 
         public String getEmail() {
@@ -139,7 +135,7 @@ public class Pessoa {
                 String cpf,
                 String rg,
                 String genero,
-                Collection<String> perfis,
+                String perfil,
                 String email,
                 String contato,
                 LocalDate dataNascimento
@@ -153,29 +149,10 @@ public class Pessoa {
                 this.cpf = cpf;
                 this.rg = rg;
                 this.genero = genero;
-
-                this.perfis.clear();
-                if (perfis != null) {
-                        this.perfis.addAll(perfis);
-                }
-
+                this.perfil = perfil;
                 this.email = email;
                 this.contato = contato;
                 this.dataNascimento = dataNascimento;
-        }
-
-        // =========================
-        // MÉTODOS DE DOMÍNIO ESPECÍFICOS
-        // =========================
-
-        public void addPerfil(String perfil) {
-                if (perfil != null && !perfil.isBlank()) {
-                        perfis.add(perfil.trim());
-                }
-        }
-
-        public void removePerfil(String perfil) {
-                perfis.remove(perfil);
         }
 
         public void atualizarContato(String novoContato) {
@@ -184,6 +161,10 @@ public class Pessoa {
 
         public void atualizarEmail(String novoEmail) {
                 this.email = novoEmail;
+        }
+
+        public void atualizarPerfil(String novoPerfil) {
+                this.perfil = novoPerfil;
         }
 
         // =========================
