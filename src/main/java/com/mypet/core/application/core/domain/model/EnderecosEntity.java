@@ -33,7 +33,7 @@ public class EnderecosEntity implements Serializable {
 
 
 //   // private Cliente clienteId;
-//    private FuncionariosEntity funcionarioId;
+//    private Funcionario funcionarioId;
 
     private String rua;
     private String numero;
