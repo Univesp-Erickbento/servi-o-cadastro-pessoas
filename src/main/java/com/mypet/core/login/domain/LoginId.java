@@ -1,31 +1,32 @@
-// java
-package com.mypet.core.pessoa.domain;
+package com.mypet.core.login.domain;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.Objects;
 
 /**
- * Value object para identidade de Login.
+ * Value Object para identidade de Login.
  */
-public final class PessoaId {
+public final class LoginId {
 
     private final Long value;
 
-    private PessoaId(Long value) {
+    private LoginId(Long value) {
         this.value = value;
     }
 
-    public static PessoaId of(Long value) {
+    public static LoginId of(Long value) {
         Objects.requireNonNull(value, "id não pode ser nulo");
+
         if (value <= 0) {
             throw new IllegalArgumentException("id deve ser maior que zero");
         }
-        return new PessoaId(value);
+
+        return new LoginId(value);
     }
 
-    public static PessoaId empty() {
-        return new PessoaId(null);
+    public static LoginId empty() {
+        return new LoginId(null);
     }
 
     @JsonValue
@@ -40,9 +41,9 @@ public final class PessoaId {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PessoaId)) return false;
-        PessoaId pessoaId = (PessoaId) o;
-        return Objects.equals(value, pessoaId.value);
+        if (!(o instanceof LoginId)) return false;
+        LoginId loginId = (LoginId) o;
+        return Objects.equals(value, loginId.value);
     }
 
     @Override

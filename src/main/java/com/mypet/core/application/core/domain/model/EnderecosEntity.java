@@ -23,9 +23,9 @@ public class EnderecosEntity implements Serializable {
     @Id
     private long id;
 
-//    @ManyToOne // Relacionamento muitos-para-um com Pessoa
+//    @ManyToOne // Relacionamento muitos-para-um com Login
 //    @JoinColumn(name = "pessoaId") // Nome da coluna estrangeira no banco de dados
-//    private Pessoa pessoaId;
+//    private Login pessoaId;
 
 //    @ManyToOne // Relacionamento muitos-para-um com Cliente
 //    @JoinColumn(name = "clienteId") // Nome da coluna estrangeira no banco de dados

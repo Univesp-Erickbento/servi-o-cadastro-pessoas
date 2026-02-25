@@ -21,7 +21,7 @@ public class ClienteServiceImpl {
 
     @Transactional
     public Cliente salvar(Cliente cliente, String authorizationHeader) {
-        // Já espera um Cliente com PessoaId corretamente setado
+        // Já espera um Cliente com LoginId corretamente setado
         return clienteRepositoryPort.save(cliente);
     }
 
@@ -41,7 +41,7 @@ public class ClienteServiceImpl {
             Cliente cliente = clienteExistente.get();
             // Como o Cliente é "imutável" em partes, usamos métodos de negócio para alterar
             if (!cliente.getPessoaId().equals(clienteAtualizado.getPessoaId())) {
-                // Se quiser permitir alteração de PessoaId
+                // Se quiser permitir alteração de LoginId
                 throw new IllegalStateException("Não é permitido alterar pessoaId do cliente");
             }
             cliente.alterarRegistro(clienteAtualizado.getClienteReg());

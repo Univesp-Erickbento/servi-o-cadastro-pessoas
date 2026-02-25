@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Porta de saída para persistência de Pessoa.
+ * Porta de saída para persistência de Login.
  * Define o contrato que o adaptador de persistência deve implementar.
  */
 public interface PessoaRepositoryPort {

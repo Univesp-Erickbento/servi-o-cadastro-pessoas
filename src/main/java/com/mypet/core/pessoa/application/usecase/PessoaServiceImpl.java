@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Implementação dos use cases para Pessoa.
+ * Implementação dos use cases para Login.
  * Encapsula a lógica de negócio e implementa as portas de entrada.
  */
 @Service

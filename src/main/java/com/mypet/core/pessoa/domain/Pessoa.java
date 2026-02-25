@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * Entidade de domínio Pessoa (sem anotações JPA).
+ * Entidade de domínio Login (sem anotações JPA).
  */
 public class Pessoa {
 
@@ -194,7 +194,7 @@ public class Pessoa {
 
         @Override
         public String toString() {
-                return "Pessoa{" +
+                return "Login{" +
                         "id=" + id +
                         ", nome='" + nome + '\'' +
                         ", cpf='" + cpf + '\'' +

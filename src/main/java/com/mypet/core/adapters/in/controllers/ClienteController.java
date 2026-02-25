@@ -48,7 +48,7 @@ public class ClienteController {
             throw new IllegalArgumentException("pessoaId obrigatório e deve ser maior que zero");
         }
 
-        // Converter long para PessoaId
+        // Converter long para LoginId
         PessoaId pessoaId = PessoaId.of(dto.pessoaId());
 
         // Criar Cliente usando factory method do domínio
@@ -77,7 +77,7 @@ public class ClienteController {
             throw new IllegalArgumentException("pessoaId obrigatório e deve ser maior que zero");
         }
 
-        // Converter long para PessoaId
+        // Converter long para LoginId
         PessoaId pessoaId = PessoaId.of(dto.pessoaId());
 
         // Criar Cliente com dados do DTO
@@ -102,7 +102,7 @@ public class ClienteController {
     @GetMapping("/pessoa/{pessoaId}")
     public ResponseEntity<Cliente> buscarPorPessoaId(@PathVariable Long pessoaId,
                                                      @RequestHeader("Authorization") String authorizationHeader) {
-        // Converter long para PessoaId
+        // Converter long para LoginId
         PessoaId pid = PessoaId.of(pessoaId);
         return clienteService.buscarPorPessoaId(pid, authorizationHeader)
                 .map(ResponseEntity::ok)

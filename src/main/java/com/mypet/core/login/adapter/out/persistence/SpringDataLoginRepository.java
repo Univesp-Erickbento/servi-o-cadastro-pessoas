@@ -1,4 +1,4 @@
-package com.mypet.core.adapters.out.repositories;
+package com.mypet.core.login.adapter.out.persistence;
 
 import com.mypet.core.login.adapter.out.persistence.entity.LoginJpaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface LoginRepository extends JpaRepository<LoginJpaEntity, Long> {
+public interface SpringDataLoginRepository
+        extends JpaRepository<LoginJpaEntity, Long> {
 
-    // Método para buscar uma pessoa pelo nome de usuario
     Optional<LoginJpaEntity> findByNomeUsuario(String nomeUsuario);
 }

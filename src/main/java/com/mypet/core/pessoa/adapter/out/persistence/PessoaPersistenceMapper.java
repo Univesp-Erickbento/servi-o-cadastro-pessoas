@@ -6,7 +6,7 @@ import com.mypet.core.pessoa.domain.PessoaId;
 import org.springframework.stereotype.Component;
 
 /**
- * Mapper responsável por converter entre a entidade de domínio Pessoa
+ * Mapper responsável por converter entre a entidade de domínio Login
  * e a entidade JPA PessoaJpaEntity.
  */
 @Component

@@ -40,7 +40,7 @@ public class ClientePersistenceMapper {
                         : null
         );
 
-        // PessoaId
+        // LoginId
         entity.setPessoaId(
                 cliente.getPessoaId() != null
                         ? cliente.getPessoaId().asLong()
