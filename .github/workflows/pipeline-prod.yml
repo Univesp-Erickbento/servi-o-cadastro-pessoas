@@ -55,7 +55,8 @@ jobs:
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}  # opcional, se a chave tiver passphrase
           port: ${{ secrets.REMOTE_PORT }}  # se não for 22, senão pode remover
           script: |
             echo "⛔ Parando container antigo (se existir)..."
