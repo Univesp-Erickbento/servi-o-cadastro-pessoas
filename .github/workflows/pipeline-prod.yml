@@ -34,10 +34,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: 🏗️ Build da imagem Docker
-        run: docker build -t torresbento/tbmt-cadastro-de-pessoas:${{ steps.project_version.outputs.version }} .
+        run: docker build -t torresbento/bmt-cadastro-de-pessoas:${{ steps.project_version.outputs.version }} .
 
       - name: 📤 Push para Docker Hub
-        run: docker push torresbento/tbmt-cadastro-de-pessoas:${{ steps.project_version.outputs.version }}
+        run: docker push torresbento/bmt-cadastro-de-pessoas:${{ steps.project_version.outputs.version }}
 
       - name: 🚀 Verificar segredo REMOTE_HOST
         id: check_remote_host
@@ -68,30 +68,30 @@ jobs:
             sudo docker image prune -a -f --filter "label=project=cadastro-pessoas" || true
 
             echo "⬇️ Baixando nova imagem..."
-            sudo docker pull torresbento/tbmt-cadastro-de-pessoas:${{ steps.project_version.outputs.version }}
+            sudo docker pull torresbento/bmt-cadastro-de-pessoas:${{ steps.project_version.outputs.version }}
 
             echo "🌐 Garantindo que a rede Docker personalizada exista com o subnet correto..."
-            # Verificando se a rede tbmt-rede-docker existe e se tem o subnet correto
-            if sudo docker network inspect tbmt-rede-docker > /dev/null 2>&1; then
+            # Verificando se a rede bmt-rede-docker existe e se tem o subnet correto
+            if sudo docker network inspect bmt-rede-docker > /dev/null 2>&1; then
               # Se a rede já existir, verifique o subnet
-              echo "Rede tbmt-rede-docker já existe. Verificando subnet..."
-              if ! sudo docker network inspect tbmt-rede-docker | grep -q '"Subnet": "172.18.0.0/16"'; then
-                echo "A rede tbmt-rede-docker não tem o subnet correto. Removendo e recriando..."
-                sudo docker network rm tbmt-rede-docker || true
-                sudo docker network create --driver bridge --subnet 172.18.0.0/16 tbmt-rede-docker
+              echo "Rede bmt-rede-docker já existe. Verificando subnet..."
+              if ! sudo docker network inspect bmt-rede-docker | grep -q '"Subnet": "172.18.0.0/16"'; then
+                echo "A rede bmt-rede-docker não tem o subnet correto. Removendo e recriando..."
+                sudo docker network rm bmt-rede-docker || true
+                sudo docker network create --driver bridge --subnet 172.18.0.0/16 bmt-rede-docker
               else
-                echo "Rede tbmt-rede-docker já existe com o subnet correto."
+                echo "Rede bmt-rede-docker já existe com o subnet correto."
               fi
             else
               # Se a rede não existir, cria uma nova rede com o subnet correto
-              echo "Rede tbmt-rede-docker não encontrada. Criando nova rede..."
-              sudo docker network create --driver bridge --subnet 172.18.0.0/16 tbmt-rede-docker
+              echo "Rede bmt-rede-docker não encontrada. Criando nova rede..."
+              sudo docker network create --driver bridge --subnet 172.18.0.0/16 bmt-rede-docker
             fi
 
             echo "🏃 Subindo novo container..."
             # Removemos a atribuição do IP fixo, deixando o Docker atribuir automaticamente
             sudo docker run -d --name cadastro-pessoas \
               --label project=cadastro-pessoas \
-              --network tbmt-rede-docker \
+              --network bmt-rede-docker \
               -p 9090:9090 \
-              torresbento/tbmt-cadastro-de-pessoas:${{ steps.project_version.outputs.version }}
+              torresbento/bmt-cadastro-de-pessoas:${{ steps.project_version.outputs.version }}
